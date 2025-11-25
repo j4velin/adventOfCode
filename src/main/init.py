@@ -4,11 +4,12 @@ import os
 import sys
 
 year = str(sys.argv[1])
+dayOver = 26 if int(year) < 2025 else 13
 
 dir = os.path.join('kotlin', 'aoc' + year)
 os.makedirs(dir, exist_ok=True)
 
-for i in range(1,26):
+for i in range(1, dayOver):
     if i < 10:
         day = 'Day0' + str(i)
     else:
