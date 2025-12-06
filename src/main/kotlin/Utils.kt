@@ -224,7 +224,7 @@ inline fun <T> Iterable<T>.multiplyOfLong(selector: (T) -> Long): Long {
  * @param ignore optional character to ignore in the strings (for example a delimiter)
  */
 fun List<String>.to2dCharArray(ignore: Char? = null): Array<CharArray> {
-    val maxX = first().count { ignore == null || it != ignore } - 1
+    val maxX = this.maxOf { line -> line.count { ignore == null || it != ignore } - 1 }
     val maxY = size
     val array = (0..maxX).asSequence().map { CharArray(maxY) }.toList().toTypedArray()
     withIndex().forEach { (y, row) ->
