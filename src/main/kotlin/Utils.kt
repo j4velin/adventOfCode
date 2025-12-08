@@ -4,6 +4,7 @@ import java.security.MessageDigest
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.absoluteValue
+import kotlin.math.sqrt
 
 const val allDigits = "0123456789"
 const val allLetters = "abcdefghijklmnopqrstuvwxyz"
@@ -41,7 +42,8 @@ fun <T, U> Sequence<T>.withEachOf(other: Sequence<U>): Sequence<Pair<T, U>> = fl
  * @param other the collection to 'mix' with this
  * @return a collection of the cartesian product of [this] and [other]
  */
-fun <T, U> Collection<T>.withEachOf(other: Collection<U>): Collection<Pair<T, U>> = flatMap { t -> other.map { u -> t to u } }
+fun <T, U> Collection<T>.withEachOf(other: Collection<U>): Collection<Pair<T, U>> =
+    flatMap { t -> other.map { u -> t to u } }
 
 /**
  * Data class representing a point on a 2D area
@@ -144,6 +146,8 @@ data class Point3(val x: Long, val y: Long, val z: Long) {
     fun move(dx: Long, dy: Long, dz: Long) = Point3(x + dx, y + dy, z + dz)
     fun move(dx: Int, dy: Int, dz: Int) = move(dx.toLong(), dy.toLong(), dz.toLong())
     fun distanceTo(other: Point3) = abs(x - other.x) + abs(y - other.y) + abs(z - other.z)
+    fun singleLineDistanceTo(other: Point3) =
+        sqrt((x - other.x) * (x - other.x) + (y - other.y) * (y - other.y) + (z - other.z) * (z - other.z).toDouble())
 }
 
 /**
