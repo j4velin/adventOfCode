@@ -4,6 +4,7 @@ import java.security.MessageDigest
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.absoluteValue
+import kotlin.math.min
 import kotlin.math.sqrt
 
 const val allDigits = "0123456789"
@@ -123,7 +124,8 @@ data class PointL(val x: Long, val y: Long) {
     fun move(dx: Int, dy: Int) = move(dx.toLong(), dy.toLong())
 
     infix fun isWithin(grid: Pair<PointL, PointL>) =
-        x >= grid.first.x && x <= grid.second.x && y >= grid.first.y && y <= grid.second.y
+        x in min(grid.first.x, grid.second.x)..maxOf(grid.first.x, grid.second.x) &&
+                y in min(grid.first.y, grid.second.y)..maxOf(grid.first.y, grid.second.y)
 
     /**
      * @return manhattan distance to [other]
