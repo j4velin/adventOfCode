@@ -463,3 +463,20 @@ enum class Direction(val delta: PointL) {
         }
     }
 }
+
+val primes = (2..Long.MAX_VALUE).asSequence().filter { number ->
+    number == 2L || (2 until number).none { number % it == 0L }
+}
+
+fun Long.getPrimeFactors(): List<Long> {
+    var current = this
+    val list = mutableListOf<Long>()
+    primes.takeWhile { it <= this }.forEach { prime ->
+        while (current % prime == 0L) {
+            list.add(prime)
+            current /= prime
+        }
+        if (current == 1L) return list + 1L
+    }
+    throw IllegalStateException()
+}
